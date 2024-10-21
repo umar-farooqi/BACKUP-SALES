@@ -1,0 +1,9 @@
+SELECT count(REG_NAME)  TOTAL_CUSTOMER
+
+  FROM AB_SETUP_REGISTRATION
+  where REG_TYPE = 'CUSTOMER REGISTRATION'
+  AND ORG_ID = :GV_ORG_ID
+  
+    select COUNT(*) TOTAL_CALL_TODAY from ab_sale_info_det
+    where to_char(sysdate,'DD-MON-YYYY') = to_char(UPDATED_ON,'DD-MON-YYYY')
+    order by sd_id desc
