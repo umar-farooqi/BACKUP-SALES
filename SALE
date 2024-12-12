@@ -11,6 +11,13 @@ AB_PO_PURCHASE_ORDER
 where PO_TYPE IN ('PURCHASE ORDER', 'LOCAL PURCHASE ORDER')
 AND TO_CHAR(CREATED_ON,'DD-MON-YYY') = TO_CHAR(TRUNC(SYSDATE),'DD-MON-YYY')
 AND org_id = :GV_ORG_ID
+-----------------------------------------------------------------------------------------
+    SELECT COUNT(*)  FROM TABLE(AB_GENERAL_PACKAGE.AMANAT_INWARD(:GV_ORG_ID)) AMT    <-- GRN IN
+    
+    WHERE
+        
+         TRUNC(CREATED_ON) BETWEEN NVL(TO_DATE(:P331_FROM_DATE, 'DD-MON-YYYY'), TRUNC(CREATED_ON) )  AND NVL(TO_DATE(:P331_FROM_DATE, 'DD-MON-YYYY'),TRUNC(CREATED_ON) )       
+
 
 
 ==================================
