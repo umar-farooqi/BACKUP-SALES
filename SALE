@@ -11,3 +11,13 @@ AB_PO_PURCHASE_ORDER
 where PO_TYPE IN ('PURCHASE ORDER', 'LOCAL PURCHASE ORDER')
 AND TO_CHAR(CREATED_ON,'DD-MON-YYY') = TO_CHAR(TRUNC(SYSDATE),'DD-MON-YYY')
 AND org_id = :GV_ORG_ID
+
+
+==================================
+
+purchase order done
+sale order done
+GRN in ( Gate in ward)  pending
+Gate outward pending
+Daily Recovery pending
+Daily payment   pending
