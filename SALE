@@ -12,19 +12,30 @@ where PO_TYPE IN ('PURCHASE ORDER', 'LOCAL PURCHASE ORDER')
 AND TO_CHAR(CREATED_ON,'DD-MON-YYY') = TO_CHAR(TRUNC(SYSDATE),'DD-MON-YYY')
 AND org_id = :GV_ORG_ID
 -----------------------------------------------------------------------------------------
-    SELECT COUNT(*)  FROM TABLE(AB_GENERAL_PACKAGE.AMANAT_INWARD(:GV_ORG_ID)) AMT    <-- GRN IN
+    SELECT COUNT(*)  FROM TABLE(AB_GENERAL_PACKAGE.AMANAT_INWARD(:GV_ORG_ID)) AMT    --<-- GRN IN
     
     WHERE
         
          TRUNC(CREATED_ON) BETWEEN NVL(TO_DATE(:P331_FROM_DATE, 'DD-MON-YYYY'), TRUNC(CREATED_ON) )  AND NVL(TO_DATE(:P331_FROM_DATE, 'DD-MON-YYYY'),TRUNC(CREATED_ON) )       
 
 
+-----------------------------------------
+ SELECT 
+   COUNT(*) Grn_out_ward
+FROM
+       AB_PO_PURCHASE_ORDER PO
+       where  PO_TYPE = 'AMANAT OUTWARD'
+       AND CREATED_ON = TRUNC(SYSDATE)
+       and org_id = :GV_ORG_ID
+       --------------------------------------------------------------------------
 
-==================================
+       --DAILY RECOVERY REPORT
 
-purchase order done
-sale order done
-GRN in ( Gate in ward)  pending
-Gate outward pending
-Daily Recovery pending
-Daily payment   pending
+       
+SELECT COUNT(*) AS DAILY_RECOVERY
+FROM AB_AR_RECEIPT_DET
+WHERE DET_TYPE = 'DAILY RECOVERY'
+  AND RECEIPT_DATE = TRUNC(SYSDATE)
+  AND ORG_ID = :GV_ORG_ID;
+
+  ----------------------------------------------
